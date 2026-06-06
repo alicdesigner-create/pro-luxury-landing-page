@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pro Luxury Facility Services – Andres Hernandez</title>
+  <meta name="description" content="Professional Cleaning & Building Maintenance. Andres Hernandez – CEO."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-dark:  #122144;
+      --blue-main:  #1a2f5e;
+      --blue-mid:   #2d5fa6;
+      --blue-light: #3a72c4;
+      --blue-glow:  #5b8fd4;
+      --gray-dark:   #2b2b2b;
+      --gray-mid:    #4a4a4a;
+      --gray-light:  #f5f5f5;
+      --white:       #ffffff;
+    }
+    html, body {
+      min-height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.13), 0 4px 16px rgba(0,0,0,.07);
+      animation: rise .7s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SLIDER */
+    .slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity .7s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      padding: 1.5rem;
+    }
+    .slide.active { opacity: 1; }
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 47, 94, 0.45);
+    }
+    .slide-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      text-align: center;
+    }
+    .slide-content img { max-width: 80px; }
+    .slide-title {
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0,0,0,.4);
+    }
+    .slider-dots {
+      position: absolute;
+      bottom: .75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: .4rem;
+      z-index: 2;
+      background: rgba(0,0,0,.18);
+      padding: .3rem .5rem;
+      border-radius: 20px;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.5);
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .dot.active { background: var(--white); }
+
+    /* PERSON STRIP */
+    .person-strip {
+      background: var(--blue-dark);
+      padding: .85rem 2rem;
+      text-align: center;
+    }
+    .person-name { color: var(--white); font-weight: 600; font-size: 1.05rem; }
+    .person-title { color: rgba(255,255,255,.85); font-size: .88rem; font-weight: 500; }
+
+    /* TOAST */
+    .copy-toast {
+      display: none;
+      text-align: center;
+      background: var(--blue-dark);
+      color: var(--white);
+      font-size: .78rem;
+      padding: .4rem;
+      letter-spacing: .04em;
+    }
+    .copy-toast.show { display: block; }
+
+    /* TAGLINE */
+    .tagline {
+      padding: 1.3rem 2rem .8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gray-dark);
+      line-height: 1.4;
+      text-align: center;
+      border-bottom: 1px solid #ebebeb;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 1.2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+      background: var(--white);
+    }
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .75rem 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--gray-dark);
+      background: var(--white);
+      border: 1px solid #e0e0e0;
+      transition: all .18s;
+      cursor: pointer;
+    }
+    .contact-btn:hover {
+      background: #e8f0fb;
+      border-color: var(--blue-mid);
+      color: var(--blue-dark);
+      transform: translateX(3px);
+    }
+    .contact-btn .icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--blue-main);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-btn .label { flex: 1; }
+    .contact-btn .label small { display: block; font-size: .7rem; color: #888; font-weight: 400; }
+    .contact-btn .arrow { color: #bbb; font-size: .9rem; }
+
+    /* SAVE & SHARE BUTTONS */
+    .btn-area {
+      padding: .2rem 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+    .save-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--blue-main), var(--blue-dark));
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .95rem;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(26,47,94,.35);
+      transition: all .2s;
+      text-decoration: none;
+    }
+    .save-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,47,94,.45); }
+    .outline-share-btn {
+      display: block;
+      text-align: center;
+      background: var(--white);
+      color: var(--blue-main);
+      border: 2px solid var(--blue-main);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .9rem;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .outline-share-btn:hover { background: #e8f0fb; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 1rem 2rem 1.5rem;
+      border-top: 1px solid #ebebeb;
+      font-size: .72rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <!-- SLIDER -->
+  <div class="slider" id="slider">
+    <div class="slide active" style="background:#ffffff;">
+      <div class="slide-content">
+        <img src="images/PRO LUXURY LOGO.png" alt="Pro Luxury Facility Services" style="max-width:200px;">
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('images/Commercial Carpet Extraction.png')">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <img src="images/PRO LUXURY LOGO.png" alt="Pro Luxury Facility Services">
+        <div class="slide-title">Commercial Carpet Extraction</div>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('images/Nightly Janitorial Maintenance.png')">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <img src="images/PRO LUXURY LOGO.png" alt="Pro Luxury Facility Services">
+        <div class="slide-title">Nightly Janitorial Maintenance</div>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('images/Post-Construction Cleaning.png')">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <img src="images/PRO LUXURY LOGO.png" alt="Pro Luxury Facility Services">
+        <div class="slide-title">Post-Construction Cleaning</div>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('images/Residential Floor Care.png')">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <img src="images/PRO LUXURY LOGO.png" alt="Pro Luxury Facility Services">
+        <div class="slide-title">Residential Floor Care</div>
+      </div>
+    </div>
+    <div class="slider-dots" id="dots">
+      <div class="dot active" onclick="goTo(0)"></div>
+      <div class="dot" onclick="goTo(1)"></div>
+      <div class="dot" onclick="goTo(2)"></div>
+      <div class="dot" onclick="goTo(3)"></div>
+      <div class="dot" onclick="goTo(4)"></div>
+    </div>
+  </div>
+
+  <!-- PERSON -->
+  <div class="person-strip">
+    <div class="person-name">Andres Hernandez</div>
+    <div class="person-title">CEO</div>
+  </div>
+
+  <div class="copy-toast" id="toast">🔗 Link copied!</div>
+
+  <!-- TAGLINE -->
+  <div class="tagline">
+    Professional Cleaning &amp; Building Maintenance
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <a class="contact-btn" href="tel:+17205863692">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      </div>
+      <div class="label">(720) 586-3692<small>Call or text</small></div>
+      <span class="arrow">›</span>
+    </a>
+    <a class="contact-btn" href="mailto:Info@proluxuryfs.com">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div class="label">Info@proluxuryfs.com<small>Email us</small></div>
+      <span class="arrow">›</span>
+    </a>
+    <a class="contact-btn" href="sms:+17205863692">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+      </div>
+      <div class="label">Send a Text<small>SMS</small></div>
+      <span class="arrow">›</span>
+    </a>
+  </div>
+
+  <!-- SAVE & SHARE -->
+  <div class="btn-area">
+    <a class="save-btn" href="#" onclick="saveContact(event)">
+      <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.2L19 7.8V19zm-7-7c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zM6 6h9v4H6z"/></svg>
+      Save Contact
+    </a>
+    <button class="outline-share-btn" onclick="shareCard()">Share</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Get your own digital business card at <a href="https://tesographics.com" target="_blank" style="color:#1a2f5e;font-weight:600;">Tesographics.com</a>
+  </div>
+
+</div>
+<script>
+  // Slider
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  setInterval(() => goTo((current + 1) % slides.length), 4000);
+
+  // Share
+  function shareCard() {
+    const url = window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: 'Pro Luxury Facility Services – Andres Hernandez', url });
+    } else {
+      navigator.clipboard.writeText(url).then(() => {
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+      });
+    }
+  }
+
+  // Save Contact
+  function saveContact(e) {
+    e.preventDefault();
+    const vcard = [
+      'BEGIN:VCARD','VERSION:3.0','FN:Andres Hernandez','ORG:Pro Luxury Facility Services',
+      'TITLE:CEO','TEL;TYPE=CELL:+17205863692',
+      'EMAIL:Info@proluxuryfs.com',
+      'NOTE:Professional Cleaning & Building Maintenance - Denver, Colorado - proluxuryfs.com',
+      'END:VCARD'
+    ].join('\n');
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'andres-hernandez-proluxury.vcf';
+    a.click();
+  }
+</script>
+</body>
+</html>
